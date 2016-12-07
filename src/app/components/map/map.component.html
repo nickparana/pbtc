@@ -1,0 +1,12 @@
+<div class="container col s12">
+	<div class="row" [hidden]="!editable">
+		<div class="input-field col s6">
+			<i class="material-icons prefix">place_circle</i>
+			<input id="origin-input" placeholder="Origen" class="controls" type="text" name="origen">
+		</div>
+		<div class="input-field col s6">			
+			<input id="destination-input" placeholder="Destino" class="controls" type="text" name="destino">
+		</div>
+	</div>
+	<div id="map"></div>
+</div>

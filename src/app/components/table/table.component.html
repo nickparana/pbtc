@@ -1,0 +1,15 @@
+<div class="row" [hidden]="!showInput">
+	<div class="input-field col s6">
+		<i class="material-icons prefix">search</i>
+		<input id="search" type="text" *ngIf="config.filtering" [ngTableFiltering]="config.filtering" (tableChanged)="onChangeTable(config)"
+			required>
+	</div>	
+</div>
+
+<ng-table [config]="config" (tableChanged)="onChangeTable(config)" (cellClicked)="onCellClick($event)" [rows]="rows" [columns]="columns">
+</ng-table>
+
+<pagination *ngIf="config.paging" class="pagination-sm" [(ngModel)]="page" [totalItems]="length" [itemsPerPage]="itemsPerPage"
+	[maxSize]="maxSize" [firstText]="'<<'" [lastText]="'>>'" [previousText]="'<'" [nextText]="'>'" [boundaryLinks]="true" [directionLinks]="true"
+	[rotate]="false" (pageChanged)="onChangeTable(config, $event)" (numPages)="numPages = $event">
+</pagination>

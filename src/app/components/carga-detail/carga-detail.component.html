@@ -1,0 +1,75 @@
+<div class="container" *ngIf="carga">
+	<div class="card blue-grey darken-1">
+		<div class="row">
+			<div class="col col s12 m12 l6">
+				<div class="card-content white-text">
+					<span class="card-title">{{carga.titulo}}</span>
+					<p><strong class="yellow-text text-darken-1">Codigo: </strong> {{carga.codigo}}
+					</p>
+					<p><strong class="yellow-text text-darken-1">Distancia:</strong> {{carga.distancia | number:'.2-2' }} Km.
+					</p>
+					<p><strong class="yellow-text text-darken-1">Peso:</strong> {{carga.peso}}
+					</p>
+					<p><strong class="yellow-text text-darken-1">Tarifa:</strong> ${{carga.tarifa | number:'.2-2'}}</p>
+					<p><strong class="yellow-text text-darken-1">Fecha Creación:</strong> {{carga.fechaCreacion | date:"dd/MM/yyyy"}}</p>
+					<p><strong class="yellow-text text-darken-1">Fecha Carga:</strong> {{carga.fechaCarga | date:"dd/MM/yyyy"}}</p>
+					<p><strong class="yellow-text text-darken-1">Fecha Descarga:</strong> {{carga.fechaDescarga | date:"dd/MM/yyyy"}}</p>
+					<p><strong class="yellow-text text-darken-1">Descripción:</strong> {{carga.descripcion}}
+					</p>
+					<p><strong class="yellow-text text-darken-1">Estado:</strong> {{carga.estado}}
+					</p>
+				</div>
+				<div class="card-action">
+					<br>
+					<a class="waves-effect waves-light btn red" (click)="goBack()">
+						<i class="material-icons left">skip_previous</i>VOLVER
+					</a>
+					<!--<a class="btn-floating waves-effect waves-light red" (click)="deleteTransportista(transportista)">
+							<i class="large material-icons">delete</i>
+						</a>-->
+				</div>
+			</div>
+			<div class="col col s12 m12 l6">
+				<div id=mapa>
+					<map-root [editable]='false' [origLat]='carga.origLat' [origLng]='carga.origLng' [destLat]='carga.destLat' [destLng]='carga.destLng'>
+					</map-root>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col s12" *ngIf="this.transportista">
+			<div class="card blue-grey darken-1" (click)="gotoDetailTransportista()">
+				<div class="card-content white-text">
+					<span class="card-title">Datos Tranportista</span>
+					<p><strong class="yellow-text text-darken-1">Transporte: </strong> {{transportista.nombreTransporte}}
+					</p>
+					<p><strong class="yellow-text text-darken-1">Nombre:</strong> {{transportista.nombre}}
+					</p>
+					<p><strong class="yellow-text text-darken-1">Apellido:</strong> {{transportista.apellido}}
+					</p>
+					<p><strong class="yellow-text text-darken-1">E-Mail:</strong> {{transportista.email}}
+					</p>
+					<p><strong class="yellow-text text-darken-1">Teléfono:</strong> {{transportista.telef}}
+					</p>
+					<p><strong class="yellow-text text-darken-1">Celular:</strong> {{transportista.celular}}</p>
+					<p><strong class="yellow-text text-darken-1">Camión:</strong> {{transportista.tipoCamion}}</p>
+					<p><strong class="yellow-text text-darken-1">Chasis:</strong> {{transportista.patenteChasis}}</p>
+					<p><strong class="yellow-text text-darken-1">Acoplado:</strong> {{transportista.patenteAcoplado}}</p>
+				</div>
+			</div>
+			<div class="card-action" *ngIf="carga.estado==1">
+				<br>
+				
+				<a class="waves-effect waves-light btn red" (click)="quitarCarga()">
+					<i class="material-icons left">delete</i>DESASIGNAR
+				</a>
+				<!--<a class="btn-floating waves-effect waves-light red" (click)="deleteTransportista(transportista)">
+							<i class="large material-icons">delete</i>
+						</a>-->
+			</div>
+
+		</div>
+	</div>
+</div>

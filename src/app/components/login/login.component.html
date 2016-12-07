@@ -1,0 +1,22 @@
+<div id="login-container" class="container">
+	<div id="login-item">
+		<div class="row">
+			<div class="input-field col s9 m7 l6 push-l3 push-m3 push-s1">
+				<i class="material-icons prefix">perm_identity</i>
+				<input [(ngModel)]="usuario.userid" placeholder="Ingrese ID" id="userid" type="text" class="validate">
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s9 m7 l6 push-l3 push-m3 push-s1">
+				<i class="material-icons prefix">vpn_key</i>
+				<input [(ngModel)]="usuario.password" placeholder="Ingrese Password" id="password" type="password" class="validate">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s6 m3 l2 push-l3 push-m3 push-s1"><a (click)="login()" class="btn waves-effect waves-light red lighten-2">LOG IN</a></div>
+			<div class="col s12 m9 l9 push-l3 push-m3 push-s1">
+				<div [hidden]="!loginError"><i class="material-icons left">highlight_off</i><strong>USUARIO O PASSWORD INCORRECTO</strong></div>
+			</div>
+		</div>
+	</div>
+</div>
