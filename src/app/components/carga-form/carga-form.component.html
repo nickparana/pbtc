@@ -1,0 +1,63 @@
+<div class="container s12">
+	<form *ngIf="active" #cargaForm="ngForm">
+
+		<div class="row">
+			<div class="col s12 m12 l6">
+				<!--Código-->
+				<div class="input-field col s12">
+					<i class="material-icons prefix">info_outline_circle</i>
+					<input id="codigo" type="text" placeholder="Código" class="validate" [(ngModel)]="newCarga.codigo" name="codigo" required>
+				</div>
+
+				<!--Título-->
+				<div class="input-field col s12">
+					<i class="material-icons prefix">title_circle</i>
+					<input id="titulo" type="text" placeholder="Título" class="validate" [(ngModel)]="newCarga.titulo" name="titulo" required>
+				</div>
+
+				<!--Peso-->
+				<div class="input-field col s12">
+					<i class="material-icons prefix">get_app_circle</i>
+					<input id="peso" type="number" placeholder="Peso" class="validate" [(ngModel)]="newCarga.peso" name="peso" required>
+				</div>
+
+				<!--Tarifa-->
+				<div class="input-field col s12">
+					<i class="material-icons prefix">monetization_on</i>
+					<input id="tarifa" type="number" placeholder="Tarifa" min="0.00" step="0.01" value="00.00" class="validate" [(ngModel)]="newCarga.tarifa"
+						name="tarifa" required>
+				</div>
+
+				<!--Forma de Pago-->
+				<div class="input-field col s12">
+					<i class="material-icons prefix">local_atm_circle</i>
+					<input id="formaPago" type="text" placeholder="Forma de pago" class="validate" [(ngModel)]="newCarga.formaPago" name="formaPago"
+						required>
+				</div>
+
+				<!--Descripción-->
+				<div class="input-field col s12">
+					<i class="material-icons prefix">description_circle</i>
+					<textarea id="descripcion" placeholder="Descripción" class="materialize-textarea validate" [(ngModel)]="newCarga.descripcion"
+						name="descripcion">
+				</textarea>
+				</div>
+			</div>
+
+			<div class="col s12 m12 l6">
+				<!--Mapa (Origen / Destino)-->
+				<div id="mapa">
+					<map-root [editable]='true' #map></map-root>
+				</div>
+			</div>
+
+			<div class="input-field col s12">
+				<br>
+				<button class="btn waves-effect waves-light red lighten-2" type="button" (click)="onSubmit()" name="action" [disabled]="!cargaForm.form.valid">
+			  Crear
+			<i class="material-icons right">send</i>
+		</button>
+			</div>
+		</div>
+	</form>
+</div>
