@@ -1,44 +1,44 @@
 <div class="container s12">
-	<form *ngIf="active" #cargaForm="ngForm">
+	<form *ngIf="active" #productoForm="ngForm">
 
 		<div class="row">
 			<div class="col s12 m12 l6">
 				<!--Código-->
 				<div class="input-field col s12">
 					<i class="material-icons prefix">info_outline_circle</i>
-					<input id="codigo" type="text" placeholder="Código" class="validate" [(ngModel)]="newCarga.codigo" name="codigo" required>
+					<input id="codigo" type="text" placeholder="Código" class="validate" [(ngModel)]="newProducto.codigoExterno" name="codigo" required>
 				</div>
 
 				<!--Título-->
 				<div class="input-field col s12">
 					<i class="material-icons prefix">title_circle</i>
-					<input id="titulo" type="text" placeholder="Título" class="validate" [(ngModel)]="newCarga.titulo" name="titulo" required>
+					<input id="titulo" type="text" placeholder="Título" class="validate" [(ngModel)]="newProducto.nombre" name="nombre" required>
 				</div>
 
 				<!--Peso-->
 				<div class="input-field col s12">
 					<i class="material-icons prefix">get_app_circle</i>
-					<input id="peso" type="number" placeholder="Peso" class="validate" [(ngModel)]="newCarga.peso" name="peso" required>
+					<input id="peso" type="number" placeholder="Peso" class="validate" [(ngModel)]="newProducto.peso" name="peso" required>
 				</div>
 
 				<!--Tarifa-->
 				<div class="input-field col s12">
 					<i class="material-icons prefix">monetization_on</i>
-					<input id="tarifa" type="number" placeholder="Tarifa" min="0.00" step="0.01" value="00.00" class="validate" [(ngModel)]="newCarga.tarifa"
+					<input id="tarifa" type="number" placeholder="Tarifa" min="0.00" step="0.01" value="00.00" class="validate" [(ngModel)]="newProducto.tarifa"
 						name="tarifa" required>
 				</div>
 
 				<!--Forma de Pago-->
 				<div class="input-field col s12">
 					<i class="material-icons prefix">local_atm_circle</i>
-					<input id="formaPago" type="text" placeholder="Forma de pago" class="validate" [(ngModel)]="newCarga.formaPago" name="formaPago"
+					<input id="formaPago" type="text" placeholder="Forma de pago" class="validate" [(ngModel)]="newProducto.formaPago" name="formaPago"
 						required>
 				</div>
 
 				<!--Descripción-->
 				<div class="input-field col s12">
 					<i class="material-icons prefix">description_circle</i>
-					<textarea id="descripcion" placeholder="Descripción" class="materialize-textarea validate" [(ngModel)]="newCarga.descripcion"
+					<textarea id="descripcion" placeholder="Descripción" class="materialize-textarea validate" [(ngModel)]="newProducto.descripcion"
 						name="descripcion">
 				</textarea>
 				</div>
@@ -53,7 +53,7 @@
 
 			<div class="input-field col s12">
 				<br>
-				<button class="btn waves-effect waves-light red lighten-2" type="button" (click)="onSubmit()" name="action" [disabled]="!cargaForm.form.valid">
+				<button class="btn waves-effect waves-light red lighten-2" type="button" (click)="onSubmit()" name="action" [disabled]="!productoForm.form.valid">
 			  Crear
 			<i class="material-icons right">send</i>
 		</button>

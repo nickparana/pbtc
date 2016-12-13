@@ -1,13 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MapComponent } from '../map/map.component';
 import { Transportista } from '../../models/transportista';
-import { Carga } from '../../models/carga';
+import { Producto } from '../../models/producto';
 import { TransportistaService } from '../../services/transportista.service';
-import { CargaService } from '../../services/carga.service';
-
+import { ProductoService } from '../../services/producto.service';
 
 @Component({
-    selector: 'my-mapa',
+    selector: 'mapa-global',
     templateUrl: './mapa.component.html',
     styleUrls: ['./mapa.component.css']
 })
@@ -16,22 +15,25 @@ export class MapaComponent implements OnInit {
 
     ngOnInit() {
         this.getTransportistas();
-        this.getCargas();
+        this.getProductos();
         this.initMap();
     }
 
-    constructor(private transportistaService: TransportistaService,
-        private cargaService: CargaService) { }
+    constructor(
+        private transportistaService: TransportistaService,
+        private productoService: ProductoService) { }
 
     private latitude: number = -31.7413;
     private longitude: number = -60.5115;
+
+    private bounds: any = new google.maps.LatLngBounds();
 
     private zoom: number = 12;
     private map: any;
 
     private posicionesTransportistas: Posicion[] = [];
-    private posicionesCargas: Posicion[] = [];
-    private cargas: Carga[] = [];
+    private posicionesProductos: Posicion[] = [];
+    private productos: Producto[] = [];
     private transportistas: Transportista[];
 
     initMap() {
@@ -46,15 +48,14 @@ export class MapaComponent implements OnInit {
         });
     }
 
-    setTransportistasMarkers() {
-        let bounds = new google.maps.LatLngBounds();
+    setTransportistasMarkers() {      
         this.transportistas.forEach(t => {
             this.posicionesTransportistas.forEach(posicion => {
                 let marker = new google.maps.Marker({
                     position: posicion,
                     map: this.map
                 });
-                bounds.extend(marker.getPosition());
+                this.bounds.extend(marker.getPosition());
                 let infowindow = new google.maps.InfoWindow({
                     content: t.apellido + ", " + t.nombre + " - Estado: " + t.estado
                 });
@@ -66,21 +67,20 @@ export class MapaComponent implements OnInit {
                 });
             })
         });
-        this.map.fitBounds(bounds);
+        this.map.fitBounds(this.bounds);
     }
 
-    setCargasMarkers() {
-        let bounds = new google.maps.LatLngBounds();
-        this.cargas.forEach(c => {
-            this.posicionesCargas.forEach(posicion => {
+    setProductosMarkers() {      
+        this.productos.forEach(c => {
+            this.posicionesProductos.forEach(posicion => {
                 let marker = new google.maps.Marker({
                     position: posicion,
                     map: this.map,
                     icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
                 });
-                bounds.extend(marker.getPosition());
+                this.bounds.extend(marker.getPosition());
                 let infowindow = new google.maps.InfoWindow({
-                    content: c.titulo+" - Estado: " + c.estado
+                    content: c.nombre+" - Estado: " + c.estadoProducto
                 });
                 marker.addListener('mouseover', () => {
                     infowindow.open(this.map, marker);
@@ -90,7 +90,7 @@ export class MapaComponent implements OnInit {
                 });
             })
         });
-        this.map.fitBounds(bounds);
+        this.map.fitBounds(this.bounds);
     }
 
     getTransportistas() {
@@ -101,13 +101,22 @@ export class MapaComponent implements OnInit {
             () => { this.getPosicionesTransportistas(); this.setTransportistasMarkers(); });
     }
 
-    getCargas() {
-        this.cargaService.getCargas()
+    // getProductos() {
+    //     this.productoService.getProductos()
+    //         .subscribe(
+    //         productos => { this.productos = productos },
+    //         error => console.log(error),
+    //         () => { this.getPosicionesProductos(); this.setProductosMarkers(); });
+    // }
+
+    getProductos() {
+        this.productoService.getProducto(1)
             .subscribe(
-            cargas => { this.cargas = cargas },
+            producto => { this.productos.push(producto) },
             error => console.log(error),
-            () => { this.getPosicionesCargas(); this.setCargasMarkers(); });
+            () => { this.getPosicionesProductos(); this.setProductosMarkers(); });
     }
+
 
     getPosicionesTransportistas() {
         this.transportistas.forEach(t => {
@@ -116,11 +125,13 @@ export class MapaComponent implements OnInit {
         })
     }
 
-    getPosicionesCargas() {
-        this.cargas.forEach(c => {
-            let posicion: Posicion = { lat: c.origLat, lng: c.origLng }
-            this.posicionesCargas.push(posicion);
+    getPosicionesProductos() {
+        this.productos.forEach(c => {
+            let posicion: Posicion = { lat: c.origen.latitud, lng: c.origen.longitud }
+            this.posicionesProductos.push(posicion);
         })
+        console.log(this.productos)
+        console.log(this.posicionesProductos)
     }
 }
 

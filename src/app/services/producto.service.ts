@@ -2,39 +2,47 @@ import { Injectable } from '@angular/core';
 import { Headers, Http, Response, RequestOptions, RequestMethod } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Observable';
-
-import { Carga } from '../models/carga';
-
+import { Producto } from '../models/producto';
 
 @Injectable()
-export class CargaService {
+export class ProductoService {
 
-    private apiUrl = 'http://localhost:8080/api/cargas/';
+    private apiUrl = 'http://localhost:8080/PBTC-backend/producto/';
     private headers = new Headers({ 'Content-Type': 'application/json' });
 
     constructor(private http: Http) { }
 
     //GET ALL
 
-    getCargas(): Observable<Carga[]> {
+    // getProductos(): Observable<Producto[]> {
+    getProductos(): Observable<Producto[]> {
         return this.http
             .get(this.apiUrl)
             .map(res => res.json())
             .catch(this.handleError);
     }
 
-    //FIND BY ID (USERID. NO _ID DE MONGO)
+    //FIND BY ID
 
-    getCarga(id: string): Observable<Carga> {
+    getProducto(id: number): Observable<Producto> {       
         return this.http
-            .get(this.apiUrl + 'codigo/' + id)
+            .get(this.apiUrl + id)
             .map(res => res.json())
             .catch(this.handleError);
-    }    
+    }
 
-    // ADD CARGA (CREATE)
+    //GET DISPONIBLES
 
-    createCarga(body: Carga): Observable<Carga> {
+    getProductosDisponibles(): Observable<Producto[]> {
+        return this.http
+            .get(this.apiUrl + 'disponibles')
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+
+    // CREAR PRODUCTO
+
+    createProducto(body: Producto): Observable<Producto> {
         let bodyString = JSON.stringify(body);
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({
@@ -48,9 +56,9 @@ export class CargaService {
             .catch(this.handleError)
     }
 
-    // UPDATE CARGA
+    // UPDATE PRODUCTO
 
-    updateCarga(body: Carga): Observable<Carga> {
+    updateProducto(body: Producto): Observable<Producto> {
         let bodyString = JSON.stringify(body);
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({
@@ -59,7 +67,7 @@ export class CargaService {
         });
 
         return this.http
-            .put(this.apiUrl + body._id, bodyString, options)
+            .put(this.apiUrl + body.id, bodyString, options)
             .map(res => res.json())
             .catch(this.handleError)
 
@@ -67,7 +75,7 @@ export class CargaService {
 
     // DELETE CARGA
 
-    deleteCarga(body: Carga): Observable<Carga> {
+    deleteProducto(body: Producto): Observable<Producto> {
         let bodyString = JSON.stringify(body);
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({
@@ -76,14 +84,14 @@ export class CargaService {
         });
 
         return this.http
-            .delete(this.apiUrl + body._id, options)
+            .delete(this.apiUrl + body.id, options)
             .map(res => res.json())
             .catch(this.handleError)
     }
 
-    // HANDLE ERROR OBSERVABLES
+    // HANDLE ERROR
 
-    private handleError(error: Response | any) {  // SACADO DE ANG2 DOC    
+    private handleError(error: Response | any) {
         let errMsg: string;
         if (error instanceof Response) {
             const body = error.json() || '';

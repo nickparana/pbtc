@@ -2,9 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { TransportistaService } from '../../services/transportista.service';
-import { CargaService } from '../../services/carga.service';
+import { ProductoService } from '../../services/producto.service';
 import { Transportista } from '../../models/transportista';
-import { Carga } from '../../models/carga';
+import { Producto } from '../../models/producto';
 import { TableComponent } from '../../components/table/table.component';
 import { Observable } from 'rxjs/Observable';
 
@@ -17,7 +17,7 @@ export class TransportistaDetailComponent implements OnInit {
 
     constructor(
         private transportistaService: TransportistaService,
-        private cargaService: CargaService,
+        private productoService: ProductoService,
         private location: Location,
         private router: Router,
         private route: ActivatedRoute,
@@ -27,7 +27,7 @@ export class TransportistaDetailComponent implements OnInit {
     transportista: Transportista = null;
 
     @Input()
-    private cargasTransportadas: Carga[] = [];
+    private productosTransportadas: Producto[] = [];
 
     public columns: Array<any> = [
         { title: 'Código', name: 'codigo', sort: 'asc' },
@@ -51,7 +51,7 @@ export class TransportistaDetailComponent implements OnInit {
                 .subscribe(
                 transportista => {
                     this.transportista = transportista;
-                    // if (transportista.cargas.length) this.getCargasTransportadas()
+                    // if (transportista.productos.length) this.getProductosTransportadas()
                     console.log("transportista encontrado con id: " + userid, transportista);
                 },
                 error => console.log(error)
@@ -59,25 +59,25 @@ export class TransportistaDetailComponent implements OnInit {
         });
     }
 
-    getCargasTransportadas() {
-        this.transportista.cargas.forEach((_carga: any) => {
-            this.cargaService.getCarga(_carga.codigo)
-                .subscribe(
-                carga => {
-                    if (carga !== null) {
-                        console.log("carga encontrada con codigo: " + _carga.codigo, carga);
-                        this.cargasTransportadas.push(carga)
-                    }
-                },
-                error => console.log(error));
-        })
+    // getProductosTransportadas() {
+    //     this.transportista.productos.forEach((_producto: any) => {
+    //         this.productoService.getProducto(_producto.codigo)
+    //             .subscribe(
+    //             producto => {
+    //                 if (producto !== null) {
+    //                     console.log("producto encontrada con codigo: " + _producto.codigo, producto);
+    //                     this.productosTransportadas.push(producto)
+    //                 }
+    //             },
+    //             error => console.log(error));
+    //     })
         
-    }
+    // }
 
 
-    getCargas() {
-         this.cargaService.getCargas()  
-            .subscribe(cargas => this.cargasTransportadas = cargas)
+    getProductos() {
+         this.productoService.getProductos()  
+            .subscribe(productos => this.productosTransportadas = productos)
 
     }
 
@@ -107,8 +107,8 @@ export class TransportistaDetailComponent implements OnInit {
         this.location.back();
     }
 
-    gotoDetailCarga(codigo: string): void {
-        this.router.navigate(['/carga-detail', codigo]);
+    gotoDetailProducto(codigo: string): void {
+        this.router.navigate(['/producto-detail', codigo]);
     }
 
 }

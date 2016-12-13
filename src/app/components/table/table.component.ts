@@ -29,9 +29,9 @@ export class TableComponent implements OnInit {
 
     public config: any = {
         paging: true,
-        sorting: { columns: this.columns },
+        sorting: { columns: this.columns },       
         filtering: { filterString: '' },
-        className: ['bordered', 'highlight']
+        className: ['bordered', 'highlight', 'centered']
     };
 
     @Input()
@@ -40,7 +40,7 @@ export class TableComponent implements OnInit {
     @Input()
     private showInput: boolean;
 
-    public ngOnInit(): void {      
+    public ngOnInit(): void {
         this.config.sorting.columns = this.columns;
         this.onChangeTable(this.config);
     }
@@ -137,8 +137,9 @@ export class TableComponent implements OnInit {
     public onCellClick(data: any): any {
 
         switch (this.sujeto) {
-            case 'carga':
-                this.router.navigate(['carga-detail', data.row.codigo]);
+            case 'producto':           
+                console.log(data)
+                this.router.navigate(['producto-detail', data.row.id]);
                 break;
             case 'transportista':
                 this.router.navigate(['transportista-detail', data.row.userid]);

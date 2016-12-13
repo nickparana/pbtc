@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { UsuarioService } from '../../services/usuario.service';
 import { JwtHelper, tokenNotExpired } from 'angular2-jwt';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'nav-root',
@@ -11,12 +12,14 @@ import { JwtHelper, tokenNotExpired } from 'angular2-jwt';
 
 export class NavComponent {
 
-    @Input()
-    me: any;
+    @Input() me: any;
+    activeProductos: boolean = false;
+    activePerfil: boolean = false;
 
     constructor(
         private authService: AuthService,
-        private usuarioService: UsuarioService) {
+        private usuarioService: UsuarioService,
+        private router: Router) {
         this.usuarioService.showMe
             .subscribe((me:any) => this.me = me);
     }
@@ -28,7 +31,5 @@ export class NavComponent {
 
     logOut() {
         this.authService.logout();
-    }
-
-
+    }   
 }
