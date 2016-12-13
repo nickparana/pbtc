@@ -8,7 +8,7 @@ import { AuthHttp, JwtHelper, tokenNotExpired } from 'angular2-jwt';
 @Injectable()
 export class UsuarioService {
 
-    private apiUrl = 'http://localhost:8080/api/usuarios/';
+    private apiUrl = 'http://localhost:8000/api/usuarios/';
     private jwtHelper: JwtHelper = new JwtHelper();
 
     public showMe: EventEmitter<any> = new EventEmitter();
@@ -23,7 +23,7 @@ export class UsuarioService {
     }
     
 
-    me(): Observable<any> {
+    me() {
         let token: any;
         let me: any;
         if (tokenNotExpired()) {

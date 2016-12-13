@@ -12,8 +12,8 @@ import { Observable } from 'rxjs/Observable';
 })
 
 export class MapComponent implements OnInit {
-    @Input()
-    editable: boolean;
+    
+    @Input() editable: boolean;
 
     latitude: number = -31.7413;
     longitude: number = -60.5115;
@@ -21,19 +21,12 @@ export class MapComponent implements OnInit {
     zoom: number = 12;
     map: any;
 
-    @Input()
-    public origLat: number = 0;
-    @Input()
-    public origLng: number = 0;
-    @Input()
-    public destLat: number = 0;
-    @Input()
-    public destLng: number = 0;
-    @Input()
-    public nombreOrigen: string;
-    @Input()
-    public nombreDestino: string;
-
+    @Input() public origLat: number = 0;
+    @Input() public origLng: number = 0;
+    @Input() public destLat: number = 0;
+    @Input() public destLng: number = 0;
+    @Input() public nombreOrigen: string;
+    @Input() public nombreDestino: string;
 
     public total_distance: number = 0;
 
@@ -101,7 +94,7 @@ export class MapComponent implements OnInit {
 
                 origin_autocomplete.addListener('place_changed', () => {
                     let place = origin_autocomplete.getPlace();
-        
+
                     console.log(place);
                     if (!place.geometry) {
                         window.alert("No se encontró lugar");
@@ -118,7 +111,7 @@ export class MapComponent implements OnInit {
 
                 destination_autocomplete.addListener('place_changed', () => {
                     let place = destination_autocomplete.getPlace();
-                 
+
                     console.log(place);   // tomar para campo string en product
                     if (!place.geometry) {
                         window.alert("No se encontró lugar");

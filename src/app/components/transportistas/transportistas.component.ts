@@ -12,15 +12,14 @@ export class TransportistasComponent implements OnInit {
 
   @Input()
   private transportistas: Transportista[];
-  private transportista: Transportista;
 
   public columns: Array<any> = [
-    { title: 'Transporte', name: 'nombreTransporte' },
-    { title: 'Nombre', name: 'nombre' },
-    { title: 'Apellido', name: 'apellido' },
-    { title: 'Chasis', name: 'patenteChasis' },
-    { title: 'Acoplado', name: 'patenteAcoplado' },
-    { title: 'Estado', name: 'estado' }
+    { title: 'Transporte', name: 'nombreTransporte', sort: 'asc' },
+    { title: 'Nombre', name: 'nombre', sort: '' },
+    { title: 'Apellido', name: 'apellido', sort: '' },
+    { title: 'Chasis', name: 'patenteChasis', sort: '' },
+    { title: 'Acoplado', name: 'patenteAcoplado', sort: '' },
+    { title: 'Estado', name: 'estado', sort: '' }
   ];
 
   constructor(

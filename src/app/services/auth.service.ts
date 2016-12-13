@@ -35,7 +35,7 @@ export class AuthService {
             headers: headers
         });
 
-        return this.http.post('http://localhost:8080/api/authenticate',
+        return this.http.post('http://localhost:8000/api/authenticate',
             JSON.stringify({ userid: userid, password: password }), options)
             .map((res: Response) => {
                 let id_token = res.json().id_token;
@@ -57,7 +57,7 @@ export class AuthService {
 
     getUsuarios(): Observable<Usuario[]> {
         return this.authHttp
-            .get('http://localhost:8080/api/usuarios')
+            .get('http://localhost:8000/api/usuarios')
             .map(res => res.json())
             .catch(this.handleError);
     }

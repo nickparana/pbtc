@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Headers, Http, Response, RequestOptions, RequestMethod } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Observable';
-import { Carga } from '../models/carga';
+import { Producto } from '../models/producto';
 import { Transportista } from '../models/transportista';
 import { AuthHttp } from 'angular2-jwt';
 
@@ -10,7 +10,7 @@ import { AuthHttp } from 'angular2-jwt';
 @Injectable()
 export class TransportistaService {
 
-    private apiUrl = 'http://localhost:8080/api/transportistas/';
+    private apiUrl = 'http://localhost:8000/api/transportistas/';
     private headers = new Headers({ 'Content-Type': 'application/json' });
 
     constructor(
