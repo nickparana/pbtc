@@ -1,7 +1,7 @@
-import { Component, Input, NgModule, OnInit } from '@angular/core';
+import { Component, Input, NgModule, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
-
+import { Punto } from '../../models/punto';
 import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Observable';
 
@@ -12,7 +12,7 @@ import { Observable } from 'rxjs/Observable';
 })
 
 export class MapComponent implements OnInit {
-    
+
     @Input() editable: boolean;
 
     latitude: number = -31.7413;
@@ -21,14 +21,16 @@ export class MapComponent implements OnInit {
     zoom: number = 12;
     map: any;
 
-    @Input() public origLat: number = 0;
-    @Input() public origLng: number = 0;
-    @Input() public destLat: number = 0;
-    @Input() public destLng: number = 0;
-    @Input() public nombreOrigen: string;
-    @Input() public nombreDestino: string;
+    @Input() origen: Punto = new Punto(0, 0, "");
+    @Input() destino: Punto = new Punto(0, 0, "");
 
-    public total_distance: number = 0;
+
+    @Input() validCoords: boolean = false;
+    @Output() validCoordsChange = new EventEmitter();
+
+
+
+    total_distance: number = 0;
 
     origin_location: any;
     destination_location: any;
@@ -50,8 +52,8 @@ export class MapComponent implements OnInit {
 
     initMapStatic() {
 
-        this.origin_location = { lat: this.origLat, lng: this.origLng };
-        this.destination_location = { lat: this.destLat, lng: this.destLng };
+        this.origin_location = { lat: this.origen.latitud, lng: this.origen.longitud };
+        this.destination_location = { lat: this.destino.latitud, lng: this.destino.longitud };
 
         this.map = new google.maps.Map(document.getElementById('map'), {
             mapTypeControl: true,
@@ -100,9 +102,9 @@ export class MapComponent implements OnInit {
                         window.alert("No se encontró lugar");
                         return;
                     }
-                    this.origLat = place.geometry.location.lat();
-                    this.origLng = place.geometry.location.lng();
-                    this.nombreOrigen = place.formatted_address;
+                    this.origen.latitud = place.geometry.location.lat();
+                    this.origen.longitud = place.geometry.location.lng();
+                    this.origen.direccion = place.formatted_address;
                     this.origin_location = place.geometry.location;
                     this.expandViewportToFitPlace(this.map, place);
                     this.drawRoute(this.origin_location, this.destination_location, this.travel_mode,
@@ -111,15 +113,13 @@ export class MapComponent implements OnInit {
 
                 destination_autocomplete.addListener('place_changed', () => {
                     let place = destination_autocomplete.getPlace();
-
-                    console.log(place);   // tomar para campo string en product
                     if (!place.geometry) {
                         window.alert("No se encontró lugar");
                         return;
                     }
-                    this.destLat = place.geometry.location.lat();
-                    this.destLng = place.geometry.location.lng();
-                    this.nombreDestino = place.formatted_address;
+                    this.destino.latitud = place.geometry.location.lat();
+                    this.destino.longitud = place.geometry.location.lng();
+                    this.destino.direccion = place.formatted_address;
                     this.destination_location = place.geometry.location;
                     this.expandViewportToFitPlace(this.map, place);
                     this.drawRoute(this.origin_location, this.destination_location, this.travel_mode,
@@ -152,6 +152,10 @@ export class MapComponent implements OnInit {
         }, (response: any, status: any) => {
             if (status === google.maps.DirectionsStatus.OK) {
                 directionsDisplay.setDirections(response);
+
+                this.validCoords = true; // para pasar el valor a form-component y habilitar el submit
+                this.validCoordsChange.emit(this.validCoords);
+
                 this.computeTotalDistance(directionsDisplay.getDirections());
             } else {
                 window.alert('Solicitud de ruta ha fallado debido a: ' + status);

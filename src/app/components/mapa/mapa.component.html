@@ -1,1 +1,18 @@
-<div id="mapa"></div>
+<div class="container" [hidden]="loaded">
+    <div class="preloader-wrapper active" id="loader">
+    <div class="spinner-layer spinner-red-only">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>   
+</div>
+
+
+<div id="map-canvas-container" [hidden]="!loaded">
+    <div id="map-canvas"></div>   
+</div>

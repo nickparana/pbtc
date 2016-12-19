@@ -29,9 +29,9 @@ export class ProductoDetailComponent implements OnInit {
         this.getProducto();
     }
 
-    getProducto() {       
+    getProducto() {
         this.route.params.forEach((params: Params) => {
-            let id = params['id'];       
+            let id = params['id'];
             this.productoService.getProducto(id)
                 .subscribe(
                 producto => this.producto = producto,
@@ -57,11 +57,8 @@ export class ProductoDetailComponent implements OnInit {
         if (conf == true) {
             this.productoService.deleteProducto(this.producto)
                 .subscribe(
-                () => {
-                    console.log("producto eliminado");
-                    this.goBack();
-                },
                 error => console.log(error));
+            this.goBack()
         }
     }
 
@@ -103,6 +100,10 @@ export class ProductoDetailComponent implements OnInit {
     // gotoDetailTransportista(): void {
     //     this.router.navigate(['/transportista-detail', this.transportista.userid]);
     // }
+
+    gotoEditProducto(){
+        this.router.navigate(['/producto-edit', this.producto.id]);
+    }
 
     goBack(): void {
         this.location.back();

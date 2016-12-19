@@ -11,6 +11,7 @@ import { Observable } from 'rxjs/Observable';
 @Component({
     selector: 'transportista-detail',
     templateUrl: './transportista-detail.component.html',
+    styleUrls: ['./transportista-detail.component.css']
 })
 
 export class TransportistaDetailComponent implements OnInit {
@@ -27,34 +28,32 @@ export class TransportistaDetailComponent implements OnInit {
     transportista: Transportista = null;
 
     @Input()
-    private productosTransportadas: Producto[] = [];
+    private productosTransportados: Producto[] = [];
 
     public columns: Array<any> = [
-        { title: 'Código', name: 'codigo', sort: 'asc' },
-        { title: 'Título', name: 'titulo' },
-        { title: 'Peso', name: 'peso' },
-        { title: 'Distancia', name: 'distancia' },
-        { title: 'Tarifa [$]', name: 'tarifa' },
-        { title: 'Forma de Pago', name: 'formaPago' },
-        { title: 'Estado', name: 'estado' }
+        { title: 'Id', name: 'id', sort: 'asc' },
+        { title: 'Título', name: 'nombre', sort: '' },
+        { title: 'Origen', name: 'origenDireccion', sort: '' },
+        { title: 'Destino', name: 'destinoDireccion', sort: '' },
+        { title: 'Estado', name: 'estadoProducto', sort: '' }
     ];
 
     ngOnInit(): void {
+      //  this.getProductos();
         this.getTransportista();
     }
 
 
     getTransportista() {
         this.route.params.forEach((params: Params) => {
-            let userid = params['userid'];
-            this.transportistaService.getTransportista(userid)
+            let id = params['id'];
+            this.transportistaService.getTransportista(id)
                 .subscribe(
                 transportista => {
                     this.transportista = transportista;
-                    // if (transportista.productos.length) this.getProductosTransportadas()
-                    console.log("transportista encontrado con id: " + userid, transportista);
+                    // if (transportista.productos.length) this.getProductosTransportadas()           
                 },
-                error => console.log(error)
+                error => console.log(error)             
                 );
         });
     }
@@ -66,22 +65,20 @@ export class TransportistaDetailComponent implements OnInit {
     //             producto => {
     //                 if (producto !== null) {
     //                     console.log("producto encontrada con codigo: " + _producto.codigo, producto);
-    //                     this.productosTransportadas.push(producto)
+    //                     this.productosTransportados.push(producto)
     //                 }
     //             },
     //             error => console.log(error));
     //     })
-        
+
     // }
 
 
-    getProductos() {
-         this.productoService.getProductos()  
-            .subscribe(productos => this.productosTransportadas = productos)
-
+    getProductos() {  // prueba (trae todo)
+        this.productoService.getProductos()
+            .subscribe(productos => this.productosTransportados = productos,
+            error => console.log(error))
     }
-
-
 
     updateTransportista() {
         this.transportistaService.updateTransportista(this.transportista)
@@ -99,7 +96,7 @@ export class TransportistaDetailComponent implements OnInit {
             this.transportistaService.deleteTransportista(t)
                 .subscribe(
                 error => console.log(error));
-            this.goBack;
+            this.goBack();
         }
     }
 

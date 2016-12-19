@@ -12,17 +12,12 @@ import { Usuario } from '../../models/usuario';
 export class PerfilComponent implements OnInit {
 
     constructor(
-        private usuarioService: UsuarioService,
-        private location: Location) { }
+        private usuarioService: UsuarioService) { }
 
     private me: Usuario;
 
     ngOnInit() {
         this.me = this.usuarioService.me()
-    }
-
-    goBack(): void {
-        this.location.back();
     }
 
 }

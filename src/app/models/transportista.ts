@@ -1,22 +1,26 @@
+import {Transporte} from './transporte';
+
 export class Transportista {
   constructor(
-    public _id: string,
-    public userid: string,
-    public cuit: string,
-    public cuil: string,
-    public nombreTransporte: string,
-    public patenteChasis: string,
-    public patenteAcoplado: string,
-    public tipoCamion: string,
-    public nombre: string,
-    public apellido: string,
-    public telef: string,
-    public celular: string,
-    public email: string,
-    public ciudad: string,
-    public cargas: Array<String>,
-    public latActual: number,
-    public lngActual: number,
-    public estado: string
-  ) { }
+  ) {
+    this.estado = "libre";
+    this.latActual = 0;
+    this.lngActual = 0;
+   }
+
+  public id: number;
+  public chofer: string;
+  public cuil: string;
+  public celular: string;
+  public patenteChasis: string;
+  public patenteAcoplado: string;
+  public tipoCamion: string;
+  public transporte: Transporte;
+
+  public latActual: number;
+  public lngActual: number;
+  public estado: string;
+
+  public nombreTransporte: string;
+
 }

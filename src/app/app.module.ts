@@ -17,6 +17,8 @@ import { NavComponent } from './components/nav/nav.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ProductosComponent } from './components/productos/productos.component';
 import { ProductoFormComponent } from './components/producto-form/producto-form.component';
+import { ProductoNuevoComponent } from './components/producto-nuevo/producto-nuevo.component';
+import { ProductoEditComponent } from './components/producto-edit/producto-edit.component';
 import { ProductoDetailComponent } from './components/producto-detail/producto-detail.component';
 import { TransportistasComponent } from './components/transportistas/transportistas.component';
 import { TransportistaDetailComponent } from './components/transportista-detail/transportista-detail.component';
@@ -51,6 +53,8 @@ import { AuthService } from './services/auth.service';
         FooterComponent,
         ProductosComponent,
         ProductoFormComponent,
+        ProductoNuevoComponent,
+        ProductoEditComponent,
         ProductoDetailComponent,
         TransportistasComponent,
         TransportistaDetailComponent,
@@ -71,7 +75,7 @@ import { AuthService } from './services/auth.service';
         AuthGuard,
         UsuarioService,
         ProductoService,
-        TransportistaService,        
+        TransportistaService,
         AuthService
     ]
 })

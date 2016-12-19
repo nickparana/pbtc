@@ -1,55 +1,54 @@
 <header>
 	<!-- Dropdown Usuario Structure -->
 	<ul id="dropdownUsuario" class="dropdown-content">
-		<li routerLinkActive="active">
-			<a routerLink="perfil">
-				<i class="material-icons left">account_circle</i>Perfil
+		<!--<li routerLinkActive="active">
+			<a routerLink="perfil" class="grey-text text-darken-4">
+				<i class="fa fa-user fa-lg fa-fw pull-left"></i>Perfil
 			</a>
-		</li>
+		</li>-->
 		<li>
-			<a routerLink="/" (click)="logOut()"><i class="material-icons left">backspace</i>Salir</a></li>
+			<a routerLink="/" (click)="logOut()" class="grey-text text-darken-4"><i class="fa fa-sign-out fa-lg fa-fw pull-left"></i>Salir</a></li>
 	</ul>
 	<!-- Dropdown Productos Structure -->
-	<ul id="dropdownProductos" class="dropdown-content">
+	<ul id="dropdownProductos" class="dropdown-content">		
 		<li routerLinkActive="active">
-			<a routerLink="producto-form">
-				<i class="material-icons left">add_circle</i>Agregar</a>
+			<a routerLink="productos" class="grey-text text-darken-4">
+				<i class="fa fa-list fa-lg fa-fw pull-left"></i>Lista</a>
 		</li>
 		<li routerLinkActive="active">
-			<a routerLink="productos">
-				<i class="material-icons left">list</i>Listar</a>
+			<a routerLink="producto-nuevo" class="grey-text text-darken-4">
+				<i class="fa fa-plus-square-o fa-lg fa-fw pull-left"></i>Nuevo</a>
 		</li>
 	</ul>
 
 	<div class="navbar">
 		<nav>
-			<div class="nav-wrapper red">
+			<div class="nav-wrapper red">				
 				<!-- <a href="#!" class="brand-logo text-white">	
 						{{title}}
-					</a> -->
-				<!--<span id="bienvenido" *ngIf="this.authService.loggedIn() && me">Usuario: {{me.apellido}}, {{me.nombre}}</span>-->
+					</a> -->				
 				<a [hidden]="!this.authService.loggedIn()" href="#" data-activates="side-menu" class="button-collapse"><i class="material-icons">menu</i></a>
-				<ul [hidden]="!this.authService.loggedIn()" class="right hide-on-med-and-down">
+				<ul [hidden]="!this.authService.loggedIn()" class="left hide-on-med-and-down">
 					<li routerLinkActive="active">
-						<a routerLink="home"><i class="material-icons left">home</i>Home</a>
+						<a routerLink="home"><i class="fa fa-home fa-lg fa-fw pull-left"></i>Home</a>
 					</li>
 					<li routerLinkActive="active">
-						<a routerLink="mapa"><i class="material-icons left">language</i>Mapa</a>
+						<a routerLink="mapa"><i class="fa fa-globe fa-lg fa-fw pull-left"></i>Mapa</a>
 					</li>
 					<!-- Dropdown Producto Trigger -->
-					<li [class.active]="this.router.url === '/producto-form' || this.router.url === '/productos' || this.router.url === '/producto-detail'">
+					<li [class.active]="this.router.url === '/producto-nuevo' || this.router.url === '/productos' || this.router.url === '/producto-detail'">
 						<a class="dropdown-button" data-activates="dropdownProductos" data-hover="true" data-beloworigin="true">
-							<i class="material-icons left">local_shipping</i>Productos
+							<i class="fa fa-truck fa-lg fa-fw pull-left"></i>Productos
 						</a>
 					</li>
 					<li routerLinkActive="active">
 						<a routerLink="transportistas">
-							<i class="material-icons left">supervisor_account</i>Transportes</a>
+							<i class="fa fa-users fa-lg fa-fw pull-left"></i>Choferes</a>
 					</li>
 					<!-- Dropdown Usuario Trigger -->
 					<li [class.active]="this.router.url === '/perfil'">
 						<a class="dropdown-button" data-activates="dropdownUsuario" data-hover="true" data-beloworigin="true">
-							<i class="material-icons left">account_circle</i>Usuario
+							<i class="fa fa-user-circle fa-lg fa-fw pull-left"></i>Usuario
 						</a>
 					</li>
 				</ul>
@@ -57,43 +56,43 @@
 					<li class="no-padding">
 						<ul class="collapsible collapsible-accordion">
 							<li routerLinkActive="active">
-								<a routerLink="home"><i class="material-icons left">home</i>Home</a>
+								<a routerLink="home"><i class="fa fa-home fa-lg fa-fw pull-left"></i>Home</a>
 							</li>
 							<li routerLinkActive="active">
-								<a routerLink="mapa"><i class="material-icons left">language</i>Mapa</a>
+								<a routerLink="mapa"><i class="fa fa-globe fa-lg fa-fw pull-left"></i>Mapa</a>
 							</li>
 							<li class="bold">
 								<a class="collapsible-header  waves-effect waves-teal">
-									<i class="material-icons left">local_shipping</i>Productos</a>
+									<i class="fa fa-truck fa-lg fa-fw pull-left"></i>Productos</a>
 								<div class="collapsible-body" style="">
-									<ul>
-										<li>
-											<a routerLink="producto-form">
-												<i class="material-icons left">add_circle</i>Agregar</a>
-										</li>
+									<ul>										
 										<li>
 											<a routerLink="productos">
-												<i class="material-icons left">list</i>Listar</a>
+												<i class="fa fa-list fa-lg fa-fw pull-left"></i>Lista</a>
+										</li>
+										<li>
+											<a routerLink="producto-nuevo">
+												<i class="fa fa-plus-square-o fa-lg fa-fw pull-left"></i>Nuevo</a>
 										</li>
 									</ul>
 								</div>
 							</li>
 							<li routerLinkActive="active">
 								<a routerLink="transportistas">
-									<i class="material-icons left">supervisor_account</i>Transportes</a>
+									<i class="fa fa-users fa-lg fa-fw pull-left"></i>Choferes</a>
 							</li>
 							<li class="bold">
 								<a class="collapsible-header  waves-effect waves-teal">
-									<i class="material-icons left">account_circle</i>Usuario</a>
+									<i class="fa fa-user-circle fa-lg fa-fw pull-left"></i>Usuario</a>
 								<div class="collapsible-body" style="">
 									<ul>
-										<li>
+										<!--<li>
 											<a routerLink="perfil">
-												<i class="material-icons left">perm_identity</i>Perfil</a>
-										</li>
+												<i class="fa fa-user fa-lg fa-fw pull-left"></i>Perfil</a>
+										</li>-->
 										<li>
 											<a routerLink="/" (click)="logOut()">
-												<i class="material-icons left">backspace</i>Salir</a>
+												<i class="fa fa-sign-out fa-lg fa-fw pull-left"></i>Salir</a>
 										</li>
 									</ul>
 								</div>

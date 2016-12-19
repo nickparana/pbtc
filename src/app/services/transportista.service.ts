@@ -10,13 +10,13 @@ import { AuthHttp } from 'angular2-jwt';
 @Injectable()
 export class TransportistaService {
 
-    private apiUrl = 'http://localhost:8000/api/transportistas/';
+    private apiUrl = 'http://localhost:8080/PBTC-backend/transporte/choferes/';
     private headers = new Headers({ 'Content-Type': 'application/json' });
 
     constructor(
         private http: Http,
         private authHttp: AuthHttp
-        ) { }
+    ) { }
 
     //GET ALL
 
@@ -29,12 +29,12 @@ export class TransportistaService {
 
     //FIND BY ID (USERID. NO _ID DE MONGO)
 
-    getTransportista(id: string): Observable<Transportista> {
+    getTransportista(id: number): Observable<Transportista> {
         return this.http
-            .get(this.apiUrl + 'userid/' + id)
+            .get(this.apiUrl + id)
             .map(res => res.json())
             .catch(this.handleError);
-    }   
+    }
 
     // ADD TRANSPORTISTA (CREATE)
 
@@ -54,8 +54,8 @@ export class TransportistaService {
 
     // UPDATE TRANSPORTISTA
 
-    updateTransportista(body: Transportista): Observable<Transportista> {      
-        let bodyString = JSON.stringify(body);    
+    updateTransportista(body: Transportista): Observable<Transportista> {
+        let bodyString = JSON.stringify(body);
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({
             method: RequestMethod.Put,
@@ -63,7 +63,7 @@ export class TransportistaService {
         });
 
         return this.authHttp
-            .put(this.apiUrl + body._id, bodyString, options)
+            .put(this.apiUrl + body.id, bodyString, options)
             .map(res => res.json())
             .catch(this.handleError);
     }
@@ -79,10 +79,10 @@ export class TransportistaService {
         });
 
         return this.http
-            .delete(this.apiUrl + body._id, options)
+            .delete(this.apiUrl + body.id, options)
             .map(res => res.json())
             .catch(this.handleError);
-    }    
+    }
 
 
     // HANDLE ERROR OBSERVABLES

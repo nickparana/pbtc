@@ -22,7 +22,7 @@ export class TableComponent implements OnInit {
     @Input()
     public columns: Array<any> = [];
     public page: number = 1;
-    public itemsPerPage: number = 6;
+    public itemsPerPage: number = 7;
     public maxSize: number = 5;
     public numPages: number = 1;
     public length: number = 0;
@@ -137,12 +137,11 @@ export class TableComponent implements OnInit {
     public onCellClick(data: any): any {
 
         switch (this.sujeto) {
-            case 'producto':           
-                console.log(data)
+            case 'producto':    
                 this.router.navigate(['producto-detail', data.row.id]);
                 break;
             case 'transportista':
-                this.router.navigate(['transportista-detail', data.row.userid]);
+                this.router.navigate(['transportista-detail', data.row.id]);
                 break;
         }
     }

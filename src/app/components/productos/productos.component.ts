@@ -18,7 +18,8 @@ export class ProductosComponent implements OnInit {
         { title: 'Título', name: 'nombre', sort: '' },
         { title: 'Origen', name: 'origenDireccion', sort: '' },
         { title: 'Destino', name: 'destinoDireccion', sort: '' },
-        { title: 'Estado', name: 'estadoProducto', sort: '' }
+        { title: 'Estado', name: 'estadoProducto', sort: '' },
+        {title: 'Cargas', name: 'estadoCargas', sort:'' }
     ];
 
     constructor(
@@ -38,7 +39,9 @@ export class ProductosComponent implements OnInit {
             () => this.productos.forEach(p => {
                 p.origenDireccion = p.origen.direccion;
                 p.destinoDireccion = p.destino.direccion;
-            }));
+                p.estadoCargas = p.cantidadCargasDisponibles+"/"+p.cantidadTotalCargas;
+            })
+            );
     }
 }
 

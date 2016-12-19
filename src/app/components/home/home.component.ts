@@ -1,4 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { UsuarioService } from '../../services/usuario.service';
+import { Usuario } from '../../models/usuario';
+
 
 @Component({
     selector: 'home',
@@ -6,7 +9,15 @@ import { Component, Input } from '@angular/core';
     styleUrls: ['./home.component.css']
 })
 
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
+    constructor(
+        private usuarioService: UsuarioService) { }
+
+    private me: Usuario;
+
+    ngOnInit() {
+        this.me = this.usuarioService.me()
+    }
 
 }

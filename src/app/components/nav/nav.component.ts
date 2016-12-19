@@ -26,9 +26,6 @@ export class NavComponent {
 
     private jwtHelper: JwtHelper = new JwtHelper();
 
-    // @Input()
-    // private me: string = localStorage.getItem('id_token') ? this.jwtHelper.decodeToken(localStorage.getItem('id_token'))._doc : "N.N.";
-
     logOut() {
         this.authService.logout();
     }   

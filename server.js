@@ -30,10 +30,10 @@ app.use(express.static(__dirname + '/dist'));
 
 // Import Models and controllers
 var models = require('./models/transportista')(app, mongoose);
-var models = require('./models/carga')(app, mongoose);
+
 var models = require('./models/usuario')(app, mongoose);
 var TransportistaCtrl = require('./controllers/transportista.controller');
-var CargaCtrl = require('./controllers/carga.controller');
+
 var UsuarioCtrl = require('./controllers/usuario.controller');
 
 // Example Route
@@ -45,7 +45,7 @@ app.use(router);
 
 // API routes
 var transportistas = express.Router();
-var cargas = express.Router();
+
 var usuarios = express.Router();
 var authenticate = express.Router();
 
@@ -72,7 +72,7 @@ authenticate.post('/authenticate', function (req, res) {
         // if user is found and password is right
         // create a token
         var id_token = jwt.sign(usuario, config.secret, {
-          expiresIn: 3600 // seconds
+          expiresIn: 86400 // seconds
         });
 
         // return the information including token as JSON
@@ -91,27 +91,17 @@ app.use('/api', authenticate);
 
 
 
-
-cargas.route('/cargas')
-  .get(CargaCtrl.findAllCargas)
-  .post(CargaCtrl.addCarga);
-
 transportistas.route('/transportistas')
   .get(TransportistaCtrl.findAllTransportistas)
   .post(TransportistaCtrl.addTransportista);
 
-cargas.route('/cargas/:id')
-  .get(CargaCtrl.findByCodigo)
-  .put(CargaCtrl.updateCarga)
-  .delete(CargaCtrl.deleteCarga);
+
 
 transportistas.route('/transportistas/:id')
   .get(TransportistaCtrl.findById)
   .put(TransportistaCtrl.updateTransportista)
   .delete(TransportistaCtrl.deleteTransportista);
 
-cargas.route('/cargas/codigo/:codigo')
-  .get(CargaCtrl.findByCodigo)
 
 transportistas.route('/transportistas/userid/:userid')
   .get(TransportistaCtrl.findByUserId)
@@ -158,7 +148,6 @@ usuarios.route('/usuarios/userid/:userid')
   .get(UsuarioCtrl.findByUserId)
 
 app.use('/api', transportistas);
-app.use('/api', cargas);
 app.use('/api', usuarios);
 
 

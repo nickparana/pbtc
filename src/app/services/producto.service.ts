@@ -12,9 +12,14 @@ export class ProductoService {
 
     constructor(private http: Http) { }
 
-    //GET ALL
+    // mock
+      
+    // private prod_mock: Array<any> = [{"id":1,"nombre":"2 Silobolsas de soja","origen":{"latitud":-36.6147573,"longitud":-64.2839,"direccion":"Buenos Aires"},"destino":{"latitud":-31.6106578,"longitud":-58.017434,"direccion":"Cordoba"},"estadoProducto":"Disponible"},{"id":2,"nombre":"2 Silobolsas de trigo","origen":{"latitud":-31.6106578,"longitud":-58.017434,"direccion":"La Pampa"},"destino":{"latitud":-37.2017285,"longitud":-59.8410697,"direccion":"Rosario"},"estadoProducto":"Disponible"},{"id":3,"nombre":"2 silobolsas de trigo","origen":{"latitud":-31.6106578,"longitud":-58.017434,"direccion":"Cordoba"},"destino":{"latitud":-31.6106578,"longitud":-58.017434,"direccion":"La Pampa"},"estadoProducto":"Disponible"}]
 
-    // getProductos(): Observable<Producto[]> {
+    // prod_mock_id1: any =  {"id":1,"nombre":"2 Silobolsas de soja","codigoExterno":"123456","origen":{"latitud":-36.6147573,"longitud":-64.2839,"direccion":"Buenos Aires"},"destino":{"latitud":-31.6106578,"longitud":-58.017434,"direccion":"Cordoba"},"descripcion":null,"tarifa":1584.0,"formaPago":"Contado","estadoProducto":"Disponible"};
+
+    // GET ALL
+
     getProductos(): Observable<Producto[]> {
         return this.http
             .get(this.apiUrl)
@@ -22,7 +27,8 @@ export class ProductoService {
             .catch(this.handleError);
     }
 
-    //FIND BY ID
+    
+    // FIND BY ID
 
     getProducto(id: number): Observable<Producto> {       
         return this.http
@@ -30,6 +36,17 @@ export class ProductoService {
             .map(res => res.json())
             .catch(this.handleError);
     }
+
+    //  GET ALL MOCK
+    
+    // getProductos(): Observable<any[]> {
+    //   return Observable.of(this.prod_mock);
+    // }
+
+    //  getProducto(id: number): Observable<any> {       
+    //    return Observable.of(this.prod_mock_id1);
+    // }   
+
 
     //GET DISPONIBLES
 

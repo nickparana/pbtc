@@ -3,4 +3,10 @@
    width: 400px; 
    margin: 10px 10px 10px 10px;
    position: relative;
+   float: left;
+}
+#controls{
+    display: block;
+    float: right;
+    margin: 10px 10px 10px 10px;
 }

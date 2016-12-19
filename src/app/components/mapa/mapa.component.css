@@ -1,6 +1,23 @@
-#mapa {
-   min-height: 600px;
-   height: auto;
-   width: auto;   
-   position: relative;
+#map-canvas {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+#map-canvas-container{
+    height:100%; 
+    width: 100%; 
+    position: absolute
+}
+#loader
+{  
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100px;
+    height: 100px;   
 }

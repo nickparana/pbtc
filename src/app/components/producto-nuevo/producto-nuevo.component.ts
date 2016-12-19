@@ -8,11 +8,11 @@ import { MapComponent } from '../map/map.component';
 import { Router } from '@angular/router';
 
 @Component({
-    selector: 'producto-form',
-    templateUrl: './producto-form.component.html',
-    styleUrls: ['./producto-form.component.css']
+    selector: 'producto-nuevo',
+    templateUrl: './producto-nuevo.component.html',
+    styleUrls: ['./producto-nuevo.component.css']
 })
-export class ProductoFormComponent {   
+export class ProductoNuevoComponent {   
 
     @Input() public validCoords: boolean = false;
     validCoordsChange($event: any) {

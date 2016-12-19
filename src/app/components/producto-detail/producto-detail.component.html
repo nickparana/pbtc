@@ -1,77 +1,121 @@
 <div class="container" *ngIf="producto">
-	<div class="card blue-grey darken-1">
-		<div class="row">
-			<div class="col col s12 m12 l6">
-				<div class="card-content white-text">
-					<span class="card-title">{{producto.nombre}}</span>
-					<p><strong class="yellow-text text-darken-1">Codigo: </strong> {{producto.codigoExterno}} </p>
-					<!--<p><strong class="yellow-text text-darken-1">Distancia:</strong> {{producto.distancia | number:'.2-2' }} Km.					</p>-->
-					<!--<p><strong class="yellow-text text-darken-1">Peso:</strong> {{producto.peso}}</p>-->
-					<p><strong class="yellow-text text-darken-1">Origen:</strong> {{producto.origen.direccion}} </p>
-					<p><strong class="yellow-text text-darken-1">Destino:</strong> {{producto.destino.direccion}} </p>
-					<p><strong class="yellow-text text-darken-1">Tarifa:</strong> ${{producto.tarifa | number:'.2-2'}}</p>
-					<p><strong class="yellow-text text-darken-1">Forma de Pago:</strong> {{producto.formaPago}} </p>
-					<!--<p><strong class="yellow-text text-darken-1">Fecha Creación:</strong> {{producto.fechaCreacion | date:"dd/MM/yyyy"}}</p>
+	<div class="row">
+		
+			<h4>{{producto.nombre}}</h4>
+			<p><strong>Codigo: </strong> {{producto.codigoExterno}} /
+			<!--<p><strong class="yellow-text text-darken-1">Distancia:</strong> {{producto.distancia | number:'.2-2' }} Km.					</p>-->
+			<strong>Peso:</strong> {{producto.peso}} /
+			<strong>Origen:</strong> {{producto.origen.direccion}} /
+			<strong>Destino:</strong> {{producto.destino.direccion}} /
+			<strong>Tarifa:</strong> ${{producto.tarifa | number:'.2-2'}} /
+			<strong>Forma de Pago:</strong> {{producto.formaPago}} /
+			<!--<p><strong class="yellow-text text-darken-1">Fecha Creación:</strong> {{producto.fechaCreacion | date:"dd/MM/yyyy"}}</p>
 					<p><strong class="yellow-text text-darken-1">Fecha Producto:</strong> {{producto.fechaProducto | date:"dd/MM/yyyy"}}</p>
 					<p><strong class="yellow-text text-darken-1">Fecha Desproducto:</strong> {{producto.fechaDesproducto | date:"dd/MM/yyyy"}}</p>-->
-					<p><strong class="yellow-text text-darken-1">Descripción:</strong> {{producto.descripcion}} </p>
-					<p><strong class="yellow-text text-darken-1">Estado:</strong> {{producto.estadoProducto}} </p>
+			<strong>Descripción:</strong> {{producto.descripcion}} /
+			<strong>Estado:</strong> {{producto.estadoProducto}} </p>
+		
+		<div class="col s12 m12 l6">
+			<div id=mapa>
+				<map-root [editable]='false' [origen]='producto.origen' [destino]='producto.destino'>
+				</map-root>
+			</div>
+		</div>
+	</div>
+	<div class="row" id="controls">
+	<a class="waves-effect waves-light btn red" (click)="gotoEditProducto()">
+		<i class="material-icons left">mode_edit</i>EDITAR
+	</a>
+	<a class="waves-effect waves-light btn red" (click)="deleteProducto()">
+		<i class="material-icons left">delete</i>ELIMINAR
+	</a>
+	<a class="waves-effect waves-light btn red" (click)="goBack()">
+		<i class="material-icons left">skip_previous</i>VOLVER
+	</a>
+</div>
+</div>
+
+
+
+
+
+
+<!--
+<div class="card blue-grey darken-1">
+	<div class="row">
+		<div class="col col s12 m12 l6">
+			<div class="card-content white-text">
+				<span class="card-title">{{producto.nombre}}</span>
+				<p><strong class="yellow-text text-darken-1">Codigo: </strong> {{producto.codigoExterno}} </p>
+				<p><strong class="yellow-text text-darken-1">Distancia:</strong> {{producto.distancia | number:'.2-2' }} Km. </p>
+				<p><strong class="yellow-text text-darken-1">Peso:</strong> {{producto.peso}}</p>
+				<p><strong class="yellow-text text-darken-1">Origen:</strong> {{producto.origen.direccion}} </p>
+				<p><strong class="yellow-text text-darken-1">Destino:</strong> {{producto.destino.direccion}} </p>
+				<p><strong class="yellow-text text-darken-1">Tarifa:</strong> ${{producto.tarifa | number:'.2-2'}}</p>
+				<p><strong class="yellow-text text-darken-1">Forma de Pago:</strong> {{producto.formaPago}} </p>
+				<p><strong class="yellow-text text-darken-1">Fecha Creación:</strong> {{producto.fechaCreacion | date:"dd/MM/yyyy"}}</p>
+				<p><strong class="yellow-text text-darken-1">Fecha Producto:</strong> {{producto.fechaProducto | date:"dd/MM/yyyy"}}</p>
+				<p><strong class="yellow-text text-darken-1">Fecha Desproducto:</strong> {{producto.fechaDesproducto | date:"dd/MM/yyyy"}}</p>
+				<p><strong class="yellow-text text-darken-1">Descripción:</strong> {{producto.descripcion}} </p>
+				<p><strong class="yellow-text text-darken-1">Estado:</strong> {{producto.estadoProducto}} </p>
+			</div>
+			<div class="card-action">
+				<div class="row">
+					<a class="waves-effect waves-light btn red" (click)="gotoEditProducto()">
+						<i class="material-icons left">mode_edit</i>EDITAR
+					</a>
+					<a class="waves-effect waves-light btn red" (click)="deleteProducto()">
+						<i class="material-icons left">delete</i>ELIMINAR
+					</a>
 				</div>
-				<div class="card-action">
-					<br>
+				<div class="row">
 					<a class="waves-effect waves-light btn red" (click)="goBack()">
 						<i class="material-icons left">skip_previous</i>VOLVER
 					</a>
-					<!--<a class="btn-floating waves-effect waves-light red" (click)="deleteTransportista(transportista)">
-							<i class="large material-icons">delete</i>
-						</a>-->
-				</div>
-			</div>
-			<div class="col col s12 m12 l6">
-				<div id=mapa>
-					<map-root [editable]='false' 
-						[origLat]='producto.origen.latitud' 
-						[origLng]='producto.origen.longitud'
-						[destLat]='producto.destino.latitud' 
-						[destLng]='producto.destino.longitud'>
-					</map-root>
 				</div>
 			</div>
 		</div>
-	</div>
-
-	<div class="row">
-		<div class="col s12" *ngIf="this.transportista">
-			<div class="card blue-grey darken-1" (click)="gotoDetailTransportista()">
-				<div class="card-content white-text">
-					<span class="card-title">Datos Tranportista</span>
-					<p><strong class="yellow-text text-darken-1">Transporte: </strong> {{transportista.nombreTransporte}}
-					</p>
-					<p><strong class="yellow-text text-darken-1">Nombre:</strong> {{transportista.nombre}}
-					</p>
-					<p><strong class="yellow-text text-darken-1">Apellido:</strong> {{transportista.apellido}}
-					</p>
-					<p><strong class="yellow-text text-darken-1">E-Mail:</strong> {{transportista.email}}
-					</p>
-					<p><strong class="yellow-text text-darken-1">Teléfono:</strong> {{transportista.telef}}
-					</p>
-					<p><strong class="yellow-text text-darken-1">Celular:</strong> {{transportista.celular}}</p>
-					<p><strong class="yellow-text text-darken-1">Camión:</strong> {{transportista.tipoCamion}}</p>
-					<p><strong class="yellow-text text-darken-1">Chasis:</strong> {{transportista.patenteChasis}}</p>
-					<p><strong class="yellow-text text-darken-1">Acoplado:</strong> {{transportista.patenteAcoplado}}</p>
-				</div>
+		<div class="col s12 m12 l6">
+			<div id=mapa>
+				<map-root [editable]='false' [origen]='producto.origen' [destino]='producto.destino'>
+				</map-root>
 			</div>
-			<div class="card-action" *ngIf="producto.estado==1">
-				<br>
-
-				<a class="waves-effect waves-light btn red" (click)="quitarProducto()">
-					<i class="material-icons left">delete</i>DESASIGNAR
-				</a>
-				<!--<a class="btn-floating waves-effect waves-light red" (click)="deleteTransportista(transportista)">
-							<i class="large material-icons">delete</i>
-						</a>-->
-			</div>
-
 		</div>
 	</div>
 </div>
+
+<div class="row">
+	<div class="col s12" *ngIf="this.transportista">
+		<div class="card blue-grey darken-1" (click)="gotoDetailTransportista()">
+			<div class="card-content white-text">
+				<span class="card-title">Datos Tranportista</span>
+				<p><strong class="yellow-text text-darken-1">Transporte: </strong> {{transportista.nombreTransporte}}
+				</p>
+				<p><strong class="yellow-text text-darken-1">Nombre:</strong> {{transportista.nombre}}
+				</p>
+				<p><strong class="yellow-text text-darken-1">Apellido:</strong> {{transportista.apellido}}
+				</p>
+				<p><strong class="yellow-text text-darken-1">E-Mail:</strong> {{transportista.email}}
+				</p>
+				<p><strong class="yellow-text text-darken-1">Teléfono:</strong> {{transportista.telef}}
+				</p>
+				<p><strong class="yellow-text text-darken-1">Celular:</strong> {{transportista.celular}}</p>
+				<p><strong class="yellow-text text-darken-1">Camión:</strong> {{transportista.tipoCamion}}</p>
+				<p><strong class="yellow-text text-darken-1">Chasis:</strong> {{transportista.patenteChasis}}</p>
+				<p><strong class="yellow-text text-darken-1">Acoplado:</strong> {{transportista.patenteAcoplado}}</p>
+			</div>
+		</div>
+		<div class="card-action" *ngIf="producto.estadoProducto=='Carga tomada'">
+			<br>
+
+			<a class="waves-effect waves-light btn red" (click)="quitarProducto()">
+				<i class="material-icons left">delete</i>DESASIGNAR
+			</a>
+			<a class="btn-floating waves-effect waves-light red" (click)="deleteTransportista(transportista)">
+				<i class="large material-icons">delete</i>
+			</a>
+		</div>
+
+	</div>
+</div>-->
+<!--</div>-->

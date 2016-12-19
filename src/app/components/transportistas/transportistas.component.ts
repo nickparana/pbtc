@@ -13,13 +13,12 @@ export class TransportistasComponent implements OnInit {
   @Input()
   private transportistas: Transportista[];
 
-  public columns: Array<any> = [
-    { title: 'Transporte', name: 'nombreTransporte', sort: 'asc' },
-    { title: 'Nombre', name: 'nombre', sort: '' },
-    { title: 'Apellido', name: 'apellido', sort: '' },
+  public columns: Array<any> = [  
+    { title: 'Chofer', name: 'chofer', sort: 'asc' },
     { title: 'Chasis', name: 'patenteChasis', sort: '' },
     { title: 'Acoplado', name: 'patenteAcoplado', sort: '' },
-    { title: 'Estado', name: 'estado', sort: '' }
+    { title: 'Transporte', name: 'nombreTransporte', sort: '' },    
+    {title: 'Estado', name: 'estado', sort: ''}
   ];
 
   constructor(
@@ -34,7 +33,13 @@ export class TransportistasComponent implements OnInit {
     this.transportistaService.getTransportistas()
       .subscribe(
       transportistas => this.transportistas = transportistas,
-      error => console.log(error));
+      error => console.log(error),
+      () => this.transportistas.forEach(t => {
+        t.nombreTransporte = t.transporte.nombre;  
+        t.estado = 'Disponible';     
+      })
+      );
   }
+
 
 }
